@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.4'
+    }
+}
+
+apply plugin: 'android-library'
+apply plugin: 'maven-publish'
+
+group 'com.viewpagerindicator'
+version '2.4.1'
+
+dependencies {
+  compile 'com.android.support:support-v4:18.0.0'
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion '18.0.1'
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+}
+
+android.libraryVariants
+publishing {
+    publications {
+        maven(MavenPublication) {
+           artifact bundleRelease
+        }
+    }
+    repositories {
+        maven {
+            url "file://$buildDir/../../../ark/releases"
+        }
+    }
+}
